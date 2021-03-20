@@ -295,11 +295,10 @@ key=sb.toString();
             keyField.setText(trimKey(key,inputText.length()));
             else keyField.setText(key);
         }
-        else if(key.length()>inputText.length()-1)
-
-        Dialogs.toLongKey();
-        keyField.setText(trimKey(key,inputText.length()));
-
+        else if(key.length()>inputText.length()-1) {
+            Dialogs.toLongKey();
+            keyField.setText(trimKey(key, inputText.length()));
+        }
 
 return false;
     }

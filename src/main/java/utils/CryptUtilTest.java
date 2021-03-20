@@ -50,23 +50,5 @@ public class CryptUtilTest {
 
     }
 
-      @Test
-    public void testKeyToArrayWrapper() {
-
-//given
-
-          String key="53241";
-          int[] tab = {5,3,2,4,1};
-          int[] result = new int[5];
-
-
-          //when
-     result = CryptUtil.keyToArrayWrapper(key);
-
-//then
-          Assert.assertEquals(result,tab);
-
-
-    }
 
 }

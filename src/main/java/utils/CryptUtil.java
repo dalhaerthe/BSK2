@@ -3,6 +3,8 @@ package utils;
 import controllers.FilesController;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -244,38 +246,7 @@ public class CryptUtil {
         ///
 
 
-
-        readFile();
-        int[] intTab = keyToArrayWrapper(key);
-        writeFile(a2(content, intTab), FILE_NAME2);
-        return true;
-    }
-
-    private static String a2(String ciag, int[] klucz) {
-        String M = ciag;
-        int[] key = klucz;
-        String C = "";
-        int counter = 1;
-        int multiplier = 0;
-        int position;
-
-        for (int i = 0; i < M.length(); i++) {
-            position = ((multiplier * key.length) - 1) + (key[counter - 1]);
-
-            if ((position) < M.length()) {
-                C += M.charAt(position);
-            } else {
-                i--;
-            }
-
-            if (counter == key.length) {
-                counter = 0;
-                multiplier++;
-            }
-            counter++;
-        }
-
-        return C;
+return true;
     }
 
     /**
@@ -284,25 +255,23 @@ public class CryptUtil {
      * @param key
      * @return int Array
      */
-    public static int[] keyToArrayWrapper(String key) {
-
-
-        char[] temp = key.toCharArray();
-
-        int[] intTab = new int[key.length()];
-
-        for (int x = 0; x < key.length(); x++) {
-            intTab[x] = (Integer.parseInt(String.valueOf(temp[x])));
-        }
-        return intTab;
-    }
+//    public static int[] keyToArrayWrapper(String key) {
+//
+//
+//        char[] temp = key.toCharArray();
+//
+//        int[] intTab = new int[key.length()];
+//
+//        for (int x = 0; x < key.length(); x++) {
+//            intTab[x] = (Integer.parseInt(String.valueOf(temp[x])));
+//        }
+//        return intTab;
+//    }
 
 
     public static boolean decrypt2(String key) throws FileNotFoundException {
         readFile();
-        int[] intTab = keyToArrayWrapper(key);
-        writeFile(a2_deszyr(content, intTab), FILE_NAME2);
-        return true;
+       return true;
     }
 
     private static String a2_deszyr(String szyfr, int[] klucz) {
@@ -344,10 +313,31 @@ public class CryptUtil {
 
     public static boolean encrypt3(String key) throws FileNotFoundException {
         readFile();
-        System.out.println(key);///
+
         content = content.replaceAll(" ", "");     //usunięcie spacji
-        writeFile(a3(content, key), FILE_NAME3);
+        key=key.toLowerCase(Locale.ROOT);               //zamiana liter na wielkie
+        content=content.toLowerCase(Locale.ROOT);
+
+        ///algorytm3:
+        //TODO
+
+        List<Integer> keyEncoded, contentEncoded;
+        keyEncoded=lettersToNumbers(key);           // tworzenie list znaków zakodowanych liczbą - kolejnością w alfabecie
+        contentEncoded=lettersToNumbers(content);
+
+
+
+
+      //  writeFile(a3(content, key), FILE_NAME3);/// so podmiany
         return true;
+    }
+
+    private static List<Integer> lettersToNumbers(String key) {
+        List<Integer> integerList = new ArrayList<>();
+        for (int i = 0; i< key.length(); i++)
+
+            integerList.add((int) key.charAt(i)-97);
+        return integerList;
     }
 
     private static String a3(String ciag, String klucz) {
