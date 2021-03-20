@@ -269,34 +269,36 @@ FilesController controller = new FilesController();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-String result = controller.getText();
-        result=result.replace(" ","");      //pozbycie się spacji
-        String tempKeyField=keyField.getText();
+String inputText = controller.getText();
+        inputText=inputText.replace(" ","");      //pozbycie się spacji
+
 
         if(validInputKey1()==true)
             return true;   //czy hasło znakowe
 
-        else if(tempKeyField.length()<3 || result.length()<3)      //hasło musi byc >=3)
+        else if(key.length()<3 || inputText.length()<3)      //hasło musi byc >=3)
         {
             Dialogs.toShortKey2();
             return true;
         }
-        else if(tempKeyField.length()<result.length()-1) {
+        else if(key.length()<inputText.length()-1) {
             Dialogs.toShortKey();
 
-            int tmp = (int) Math.ceil(result.length() / tempKeyField.length());
+            int tmp = (int) Math.ceil(inputText.length() / key.length());
             StringBuilder sb = new StringBuilder();
 
-            for (int i=0;i<tmp;++i)
-sb.append(tempKeyField);
-
-
-            keyField.setText(trimKey(sb.toString(),result.length()));
+            for (int i=0;i<tmp;++i)         //'przedłużanie' klucza przez ziwlokrotnienie i przycięcie
+sb.append(key);
+key=sb.toString();
+//TODO jełśi równy - nie ścinamy
+            if(key.length()>inputText.length()-1)
+            keyField.setText(trimKey(key,inputText.length()));
+            else keyField.setText(key);
         }
-        else if(tempKeyField.length()>result.length()-1)
+        else if(key.length()>inputText.length()-1)
 
         Dialogs.toLongKey();
-        keyField.setText(trimKey(tempKeyField,result.length()));
+        keyField.setText(trimKey(key,inputText.length()));
 
 
 return false;
