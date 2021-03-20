@@ -327,20 +327,21 @@ return true;
 
   char [] [] alphabetMatrix = new char[26][];
 contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i p[odstepnie generuje problemy ;)
-
+        StringBuilder sb = new StringBuilder();
         int i=0;
         for (int x: contentEncoded
                 ) {
 int tmp2=(keyEncoded.get(i)+x)%26;
-            //System.out.println(i +" i"); ///
-System.out.print(Character.toString(tmp2+65));///
+
+
+            sb.append(Character.toString(tmp2+65));
 
 i++;
 
         }
 
 
-      //  writeFile(a3(content, key), FILE_NAME3);/// so podmiany
+        writeFile(sb.toString(), FILE_NAME3);/// so podmiany
         return true;
     }
 
