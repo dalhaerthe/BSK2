@@ -319,13 +319,25 @@ return true;
         content=content.toLowerCase(Locale.ROOT);
 
         ///algorytm3:
-        //TODO
+        //TODO  dodac usuwanie polskich znaków z key
 
         List<Integer> keyEncoded, contentEncoded;
         keyEncoded=lettersToNumbers(key);           // tworzenie list znaków zakodowanych liczbą - kolejnością w alfabecie
         contentEncoded=lettersToNumbers(content);
 
+  char [] [] alphabetMatrix = new char[26][];
+contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i p[odstepnie generuje problemy ;)
 
+        int i=0;
+        for (int x: contentEncoded
+                ) {
+int tmp2=(keyEncoded.get(i)+x)%26;
+            //System.out.println(i +" i"); ///
+System.out.print(Character.toString(tmp2+65));///
+
+i++;
+
+        }
 
 
       //  writeFile(a3(content, key), FILE_NAME3);/// so podmiany

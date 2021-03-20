@@ -49,7 +49,8 @@ public class PrimaryController {
     void initialize() {
 
         //formatuje, by wejście nie akceptowało spacji
-spacesDeleter();    }
+        spacesDeleter();
+    }
 
     //kontroler przycisku zmiany tryby pracy
     @FXML
@@ -170,7 +171,7 @@ spacesDeleter();    }
             return showBadKeyAllert();
         }
 
-        if (key.equals("") || key == null || x < 2 || x>7) {
+        if (key.equals("") || key == null || x < 2 || x > 7) {
             return showBadKeyAllert();
         }
         return false;
@@ -261,50 +262,54 @@ spacesDeleter();    }
     }
 
 
-
     private boolean validInputKey3() {
-FilesController controller = new FilesController();
+        FilesController controller = new FilesController();
         try {
             controller.readFile();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-String inputText = controller.getText();
-        inputText=inputText.replace(" ","");      //pozbycie się spacji
+        String inputText = controller.getText();
+        inputText = inputText.replace(" ", "");      //pozbycie się spacji
 
 
-        if(validInputKey1()==true)
+        if (validInputKey1() == true)
             return true;   //czy hasło znakowe
 
-        else if(key.length()<3 || inputText.length()<3)      //hasło musi byc >=3)
+        else if (key.length() < 3 || inputText.length() < 3)      //hasło musi byc >=3)
         {
             Dialogs.toShortKey2();
             return true;
-        }
-        else if(key.length()<inputText.length()-1) {
+        } else if (key.length() < inputText.length() - 1) {
             Dialogs.toShortKey();
 
             int tmp = (int) Math.ceil(inputText.length() / key.length());
             StringBuilder sb = new StringBuilder();
 
-            for (int i=0;i<tmp;++i)         //'przedłużanie' klucza przez ziwlokrotnienie i przycięcie
-sb.append(key);
-key=sb.toString();
+            for (int i = 0; i < tmp; ++i)         //'przedłużanie' klucza przez ziwlokrotnienie i przycięcie
+                sb.append(key);
+
+            key = sb.toString();
+
+
+
 //TODO jełśi równy - nie ścinamy
-            if(key.length()>inputText.length()-1)
-            keyField.setText(trimKey(key,inputText.length()));
+            if (key.length() > inputText.length() - 1)
+                keyField.setText(trimKey(key, inputText.length()));
             else keyField.setText(key);
-        }
-        else if(key.length()>inputText.length()-1) {
+        } else if (key.length() > inputText.length() - 1) {
             Dialogs.toLongKey();
-            keyField.setText(trimKey(key, inputText.length()));
+
+            key=(trimKey(key, inputText.length()));
+            keyField.setText(key);
+
         }
 
-return false;
+        return false;       //false = ok
     }
 
     private String trimKey(String longKey, int lnght) {
-        return longKey.substring(0,lnght-1);
+        return longKey.substring(0, lnght - 1);
     }
 
     public void exitProgram(ActionEvent actionEvent) {

@@ -50,5 +50,10 @@ public class CryptUtilTest {
 
     }
 
+@Test
+    public void tst(){
+    System.out.println("a");
+    System.out.println(Character.toString((char) 98));
+}
 
 }
