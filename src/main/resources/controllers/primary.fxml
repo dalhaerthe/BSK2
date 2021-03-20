@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.Tooltip?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PrimaryController">
+   <children>
+      <Label layoutX="88.0" layoutY="161.0" prefHeight="25.0" prefWidth="134.0" text="Proszę podać klucz:" />
+      <TextField fx:id="keyField" layoutX="248.0" layoutY="161.0">
+         <effect>
+            <Reflection />
+         </effect>
+      </TextField>
+      <Label layoutX="222.0" layoutY="25.0" prefHeight="48.0" prefWidth="174.0" text="Aplikacja szyfrująca" textAlignment="JUSTIFY" textFill="#060080">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <HBox layoutX="119.0" layoutY="257.0" prefHeight="100.0" prefWidth="363.0">
+         <children>
+            <Button fx:id="okButton1" mnemonicParsing="false" onAction="#readKey1" prefHeight="25.0" prefWidth="149.0" text="Algorytm 1">
+               <effect>
+                  <Reflection />
+               </effect>
+               <tooltip> <Tooltip text="klucz: liczba od 2 do 7"/> </tooltip>
+            </Button>
+            <Button fx:id="okButton2" mnemonicParsing="false" onAction="#readKey2" prefHeight="25.0" prefWidth="149.0" text="Algorytm 2">
+               <effect>
+                  <Reflection />
+               </effect>
+               <tooltip> <Tooltip text="klucz: kilka kolejnych cyfr od 1, w kolejności innej niż naturalna"/> </tooltip>
+            </Button>
+            <Button fx:id="okButton3" mnemonicParsing="false" onAction="#readKey3" prefHeight="25.0" prefWidth="149.0" text="Algorytm 3">
+               <effect>
+                  <Reflection />
+               </effect>
+               <tooltip> <Tooltip text="klucz: dowolne słowo bez polskich znaków (ciąg liter)"/> </tooltip>
+            </Button>
+         </children>
+      </HBox>
+      <Label layoutX="198.0" layoutY="215.0" text="..i wybrać algorytm szyfrowania:" />
+      <ToggleButton fx:id="modeButtonx" layoutX="459.0" layoutY="73.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="56.0" prefWidth="121.0" selected="true" text="Tryb: szyfrowanie" textFill="#f50a0a" />
+      <MenuBar fx:id="help" layoutX="14.0" layoutY="13.0" prefHeight="25.0" prefWidth="64.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#info" text="Pomoc (instrukcja)" />
+                  <MenuItem mnemonicParsing="false" onAction="#about" text="O aplikacji" />
+                  <MenuItem mnemonicParsing="false" onAction="#exitProgram" text="Wyjście" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Label fx:id="doneLabel" layoutX="276.0" layoutY="348.0" text="Gotowe! " textFill="#510202" visible="false">
+         <effect>
+            <ColorAdjust />
+         </effect>
+      </Label>
+   </children>
+</Pane>
