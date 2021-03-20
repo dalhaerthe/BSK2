@@ -344,7 +344,7 @@ public class CryptUtil {
 
     public static boolean encrypt3(String key) throws FileNotFoundException {
         readFile();
-
+        System.out.println(key);///
         content = content.replaceAll(" ", "");     //usunięcie spacji
         writeFile(a3(content, key), FILE_NAME3);
         return true;

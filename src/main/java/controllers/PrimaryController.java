@@ -270,10 +270,40 @@ FilesController controller = new FilesController();
             e.printStackTrace();
         }
 String result = controller.getText();
-        result=result.replace(" ","");
+        result=result.replace(" ","");      //pozbycie się spacji
+        String tempKeyField=keyField.getText();
+
+        if(validInputKey1()==true)
+            return true;   //czy hasło znakowe
+
+        else if(tempKeyField.length()<3 || result.length()<3)      //hasło musi byc >=3)
+        {
+            Dialogs.toShortKey2();
+            return true;
+        }
+        else if(tempKeyField.length()<result.length()-1) {
+            Dialogs.toShortKey();
+
+            int tmp = (int) Math.ceil(result.length() / tempKeyField.length());
+            StringBuilder sb = new StringBuilder();
+
+            for (int i=0;i<tmp;++i)
+sb.append(tempKeyField);
 
 
-return true; ///
+            keyField.setText(trimKey(sb.toString(),result.length()));
+        }
+        else if(tempKeyField.length()>result.length()-1)
+
+        Dialogs.toLongKey();
+        keyField.setText(trimKey(tempKeyField,result.length()));
+
+
+return false;
+    }
+
+    private String trimKey(String longKey, int lnght) {
+        return longKey.substring(0,lnght-1);
     }
 
     public void exitProgram(ActionEvent actionEvent) {

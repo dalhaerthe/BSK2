@@ -53,4 +53,37 @@ public class Dialogs {
 
         a.show();
     }
+
+    public static void toShortKey() {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setTitle("Ostrzeżenie");
+        a.setHeaderText("Hasło za krótkie.");
+        a.setContentText("Podane hasło zostanie wydłużone przez zwielokrotnienie");
+        a.setX(100);
+
+        a.show();
+    }
+
+    public static void toLongKey() {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setTitle("Ostrzeżenie");
+        a.setHeaderText("Hasło za długie.");
+        a.setContentText("Podane hasło zostanie przycięte do wymaganego rozmiaru");
+        a.setX(100);
+
+        a.show();
+    }
+
+    public static void toShortKey2() {
+
+                    Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setTitle("Ostrzeżenie");
+            a.setHeaderText("Hasło lub treść tekstu wejścia - za krótkie.");
+            a.setContentText("Żeby szyforwanie miało sens, potrzebne sa min 3 znaki w hasle i pliku wejściowym");
+            a.setX(100);
+
+            a.show();
+
+
+        }
 }
