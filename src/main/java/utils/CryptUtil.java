@@ -268,26 +268,23 @@ public class CryptUtil {
         return true;
     }
 
-    /**
-     * funkcja pomocnicza - string do int[]
-     *
-     * @param key
-     * @return int Array
-     */
-//    public static int[] keyToArrayWrapper(String key) {
-//
-//
-//        char[] temp = key.toCharArray();
-//
-//        int[] intTab = new int[key.length()];
-//
-//        for (int x = 0; x < key.length(); x++) {
-//            intTab[x] = (Integer.parseInt(String.valueOf(temp[x])));
-//        }
-//        return intTab;
-//    }
+
     public static boolean decrypt2(String key) throws FileNotFoundException {
         readFile();
+        int keyInt = Integer.parseInt(key);
+        int tmp;
+        StringBuilder sb = new StringBuilder();
+        List<Character> contentCharList = content.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
+        contentCharList.remove(0);      //korekta na tajemniczy znak istniejący na początku
+
+        for (char letter : contentCharList
+        ) {
+            tmp = (int) letter - 65;
+            tmp = (((tmp + (26-keyInt))%26))+65;
+            sb.append((char) tmp);
+        }
+        System.out.println(sb.toString());  /// TEST
+        filesController.writeFile(sb.toString(), FILE_NAME2);
         return true;
     }
 
