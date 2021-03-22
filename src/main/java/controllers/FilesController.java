@@ -43,9 +43,7 @@ public class FilesController {
 
             if(result.isEmpty() || result.equals("")|| result.equals(" "))
                 Dialogs.noContent();
-            result = result.replace("ą", "a").replace("ż", "z")
-                    .replace("ź", "z").replace("ę", "e")
-                    .replace("ł", "l").replace("ó", "o").replace("ć", "c");
+          result=CryptUtil.rmvPolishSigns(result);      //usunięcie polskich znaków
 
         }
     }

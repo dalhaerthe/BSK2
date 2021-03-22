@@ -18,14 +18,14 @@
             <Font name="System Bold" size="12.0" />
         </font></Label>
 
-      <Label text=" -  do  algorytmu1: liczba 3-7" />
-      <Label text="-  do algorytmu2: 2-7 KOLEJNYCH cyfr z zakresu &lt;1,x&gt;, gdzie x jest liczbą cyfr," />
+      <Label text=" -  do  algorytmu1: ciąg liter (do 15 ) bez polskich znaków" />
+      <Label text=" -  do  algorytmu2: liczba 3-7" />
       <Label text="cyfry należy podać w dowolnej permutacji (kolejności)">
          <VBox.margin>
             <Insets left="10.0" />
          </VBox.margin>
       </Label>
-      <Label text=" -  do algorytmu3: ciąg liter (do 15 znaków) bez polskich liter  " />
+      <Label text=" -  do algorytmu3: ciąg liter równy długością tekstowi jawnemu, bez polskich liter . Klucz  o innej długości zostanie skorygowany automatycznie" />
         <Button fx:id="secondaryButton" onAction="#switchToPrimary" text="Powrót" />
     </children>
     <padding>

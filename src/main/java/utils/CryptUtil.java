@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * logika szyfrująca
@@ -20,6 +21,15 @@ public class CryptUtil {
 
     private static String content;
     private static FilesController filesController;
+
+    public static String rmvPolishSigns(String text) {
+
+        return text.replace("ą", "a").replace("ż", "z")
+                .replace("ź", "z").replace("ę", "e")
+                .replace("ł", "l").replace("ó", "o").replace("ć", "c");
+
+    }
+
 
     private static void readFile() {
         filesController = getController();
@@ -47,7 +57,8 @@ public class CryptUtil {
     //po jednej metodzie szyfrującej i deszyfrującej dla każdego algorytmu:
 
     /**
-     *alg 1 - wrapper
+     * alg 1 - wrapper
+     *
      * @param key
      * @return result
      * @throws FileNotFoundException
@@ -240,13 +251,21 @@ public class CryptUtil {
 
     public static boolean encrypt2(String key) throws FileNotFoundException {
 
-        //97 - 122
-        //65 - 90
-        key=key.toLowerCase(Locale.ROOT);       //wszystko na wielkie litery
-        ///
+        readFile();
+        int keyInt = Integer.parseInt(key);
+        int tmp;
+        StringBuilder sb = new StringBuilder();
+        List<Character> contentCharList = content.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
+        contentCharList.remove(0);      //korekta na tajemniczy znak istniejący na początku
 
-
-return true;
+        for (char letter : contentCharList
+        ) {
+            tmp = (int) letter - 65;
+            tmp = ((tmp + keyInt) % 26) + 65;
+            sb.append((char) tmp);
+        }
+        filesController.writeFile(sb.toString(), FILE_NAME2);
+        return true;
     }
 
     /**
@@ -267,40 +286,9 @@ return true;
 //        }
 //        return intTab;
 //    }
-
-
     public static boolean decrypt2(String key) throws FileNotFoundException {
         readFile();
-       return true;
-    }
-
-    private static String a2_deszyr(String szyfr, int[] klucz) {
-
-        String M = szyfr;
-        String pomoc = "";
-
-        int counter = 1;
-        int multiplier = 0;
-        int position;
-        for (int i = 0; i < szyfr.length(); i++) {
-            StringBuilder ciag = new StringBuilder(M);
-
-            if ((klucz[counter - 1]) + (multiplier * klucz.length - 1) < szyfr.length()) {
-                ciag.setCharAt((klucz[counter - 1]) + (multiplier * klucz.length - 1), szyfr.charAt(i));
-            } else {
-                i--;
-                counter++;
-                continue;
-            }
-
-            if (counter == klucz.length) {
-                counter = 0;
-                multiplier++;
-            }
-            counter++;
-            M = ciag.toString();
-        }
-        return M;
+        return true;
     }
 
 
@@ -315,28 +303,27 @@ return true;
         readFile();
 
         content = content.replaceAll(" ", "");     //usunięcie spacji
-        key=key.toLowerCase(Locale.ROOT);               //zamiana liter na wielkie
-        content=content.toLowerCase(Locale.ROOT);
+        key = key.toLowerCase(Locale.ROOT);               //zamiana liter na wielkie
+        content = content.toLowerCase(Locale.ROOT);
 
-        ///algorytm3:
-        //TODO  dodac usuwanie polskich znaków z key
+        //algorytm3:
 
+//key=rmvPolishSigns(key);
         List<Integer> keyEncoded, contentEncoded;
-        keyEncoded=lettersToNumbers(key);           // tworzenie list znaków zakodowanych liczbą - kolejnością w alfabecie
-        contentEncoded=lettersToNumbers(content);
+        keyEncoded = lettersToNumbers(key);           // tworzenie list znaków zakodowanych liczbą - kolejnością w alfabecie
+        contentEncoded = lettersToNumbers(content);
 
-  char [] [] alphabetMatrix = new char[26][];
-contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i p[odstepnie generuje problemy ;)
+
+        contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i p[odstepnie generuje problemy ;)
         StringBuilder sb = new StringBuilder();
-        int i=0;
-        for (int x: contentEncoded
-                ) {
-int tmp2=(keyEncoded.get(i)+x)%26;
+        int i = 0;
+        for (int x : contentEncoded
+        ) {
+            int tmp2 = (keyEncoded.get(i) + x) % 26;
 
+            sb.append(Character.toString(tmp2 + 65));
 
-            sb.append(Character.toString(tmp2+65));
-
-i++;
+            i++;
 
         }
 
@@ -347,9 +334,9 @@ i++;
 
     private static List<Integer> lettersToNumbers(String key) {
         List<Integer> integerList = new ArrayList<>();
-        for (int i = 0; i< key.length(); i++)
+        for (int i = 0; i < key.length(); i++)
 
-            integerList.add((int) key.charAt(i)-97);
+            integerList.add((int) key.charAt(i) - 97);
         return integerList;
     }
 

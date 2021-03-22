@@ -293,7 +293,7 @@ public class PrimaryController {
 
 
 
-//TODO jełśi równy - nie ścinamy
+//TODO jelśi równy - nie ścinamy
             if (key.length() > inputText.length() - 1)
                 keyField.setText(trimKey(key, inputText.length()));
             else keyField.setText(key);
