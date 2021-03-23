@@ -65,27 +65,20 @@ public class CryptUtil {
      */
     public static boolean encrypt1(String key) throws FileNotFoundException {
         readFile();
-        content=content.substring(1);   //wywalenie pierwszego niepotrzebnego znaku, który coś w którym momencie dodaje
+        content = content.substring(1);   //wywalenie pierwszego niepotrzebnego znaku, który coś w którym momencie dodaje
         writeFile(ps2_a1(content, key), FILE_NAME1);
         return true;
     }
 
-    public static String ps2_a1(String ciag, String klucz)
-    {
+    public static String ps2_a1(String ciag, String klucz) {
         //wyrzucanie spacji i zamienianie małych literek na wielkie
         String M = "";
-        for (int i = 0; i < ciag.length(); i++)
-        {
-            if(ciag.charAt(i) >= 97)
-            {
-                M += (char)(ciag.charAt(i) - 32);
-            }
-            else if(ciag.charAt(i) == 32)
-            {
+        for (int i = 0; i < ciag.length(); i++) {
+            if (ciag.charAt(i) >= 97) {
+                M += (char) (ciag.charAt(i) - 32);
+            } else if (ciag.charAt(i) == 32) {
                 continue;
-            }
-            else
-            {
+            } else {
                 M += ciag.charAt(i);
             }
         }
@@ -95,24 +88,20 @@ public class CryptUtil {
         //key index sorted
         int[] kis = new int[klucz.length()];
         int kisp;
-        for ( int i = 0; i < klucz.length(); i++)
-        {
+        for (int i = 0; i < klucz.length(); i++) {
             kis[i] = i;
         }
 
-        for ( int i = 0; i < klucz.length()-1; i++)
-        {
-            for (int j = 0; j < klucz.length()-1; j++)
-            {
-                if(keyso.charAt(j) > keyso.charAt(j+1))
-                {
+        for (int i = 0; i < klucz.length() - 1; i++) {
+            for (int j = 0; j < klucz.length() - 1; j++) {
+                if (keyso.charAt(j) > keyso.charAt(j + 1)) {
                     kisp = kis[j];
-                    kis[j] = kis[j+1];
-                    kis[j+1] = kisp;
+                    kis[j] = kis[j + 1];
+                    kis[j + 1] = kisp;
 
                     StringBuilder ciagsb = new StringBuilder(keyso);
-                    ciagsb.setCharAt(j,keyso.charAt(j+1));
-                    ciagsb.setCharAt(j+1,keyso.charAt(j));
+                    ciagsb.setCharAt(j, keyso.charAt(j + 1));
+                    ciagsb.setCharAt(j + 1, keyso.charAt(j));
                     keyso = ciagsb.toString();
                 }
             }
@@ -121,8 +110,7 @@ public class CryptUtil {
         //tablica pomocnicza do wpisywania literek
         String[] tp = new String[klucz.length()];
         int tpc = 0;
-        for (int i = 0; i < klucz.length(); i++)
-        {
+        for (int i = 0; i < klucz.length(); i++) {
             tp[i] = "";
         }
 
@@ -130,50 +118,47 @@ public class CryptUtil {
         int kisc = 0;
         int counter = 0;
 
-        for(int i = 0; i < M.length(); i++)
-        {
-            if(counter <= kis[kisc])
-            {
+        for (int i = 0; i < M.length(); i++) {
+            if (counter <= kis[kisc]) {
                 tp[tpc] += M.charAt(i);
                 tpc++;
                 counter++;
 
-                //System.out.println(M.charAt(i) + "   tpc - " + tpc + "   counter - " + counter);
-            }
-            else
-            {
+                // System.out.println(M.charAt(i) + "   tpc - " + tpc + "   counter - " + counter);
+            } else {
                 kisc++;
                 counter = 0;
                 tpc = 0;
                 i--;
 
-                //System.out.println("else");
+                //  System.out.println("else");
             }
         }
 
         String C = "";
-        for(int i = 0; i < tp.length; i++)
-        {
-            C+= tp[kis[i]];
-            C+= " ";
+        for (int i = 0; i < tp.length; i++) {
+            C += tp[kis[i]];
+            C += " ";
         }
 
         return C;
     }
 
 
-    public static String ps2_a1_d(String ciag, String klucz)
-    {
+    public static boolean decrypt1(String key) throws FileNotFoundException {
+        readFile();
+        content = content.substring(1);
+        writeFile(ps2_a1_d(content, key), FILE_NAME1);
+        return true;
+    }
+
+    public static String ps2_a1_d(String ciag, String klucz) {
         //zamienianie małych literek na wielkie
         String M = "";
-        for (int i = 0; i < ciag.length(); i++)
-        {
-            if(ciag.charAt(i) >= 97)
-            {
-                M += (char)(ciag.charAt(i) - 32);
-            }
-            else
-            {
+        for (int i = 0; i < ciag.length(); i++) {
+            if (ciag.charAt(i) >= 97) {
+                M += (char) (ciag.charAt(i) - 32);
+            } else {
                 M += ciag.charAt(i);
             }
         }
@@ -183,24 +168,20 @@ public class CryptUtil {
         //key index sorted
         int[] kis = new int[klucz.length()];
         int kisp;
-        for ( int i = 0; i < klucz.length(); i++)
-        {
+        for (int i = 0; i < klucz.length(); i++) {
             kis[i] = i;
         }
 
-        for ( int i = 0; i < klucz.length()-1; i++)
-        {
-            for (int j = 0; j < klucz.length()-1; j++)
-            {
-                if(keyso.charAt(j) > keyso.charAt(j+1))
-                {
+        for (int i = 0; i < klucz.length() - 1; i++) {
+            for (int j = 0; j < klucz.length() - 1; j++) {
+                if (keyso.charAt(j) > keyso.charAt(j + 1)) {
                     kisp = kis[j];
-                    kis[j] = kis[j+1];
-                    kis[j+1] = kisp;
+                    kis[j] = kis[j + 1];
+                    kis[j + 1] = kisp;
 
                     StringBuilder ciagsb = new StringBuilder(keyso);
-                    ciagsb.setCharAt(j,keyso.charAt(j+1));
-                    ciagsb.setCharAt(j+1,keyso.charAt(j));
+                    ciagsb.setCharAt(j, keyso.charAt(j + 1));
+                    ciagsb.setCharAt(j + 1, keyso.charAt(j));
                     keyso = ciagsb.toString();
                 }
             }
@@ -210,8 +191,7 @@ public class CryptUtil {
         //tablica pomocnicza do wpisywania literek
         String[] tp = new String[klucz.length()];
         int tpc = 0;
-        for (int i = 0; i < klucz.length(); i++)
-        {
+        for (int i = 0; i < klucz.length(); i++) {
             tp[i] = "";
         }
 
@@ -220,23 +200,18 @@ public class CryptUtil {
         kisp = 0;
         //M length without spaces
         int Mlws = 0;
-        for(int i = 0; i < ciag.length(); i++)
-        {
-            if(ciag.charAt(i) != 32)
-            {
+        for (int i = 0; i < ciag.length(); i++) {
+            if (ciag.charAt(i) != 32) {
                 tp[kis[kisp]] += ciag.charAt(i);
                 Mlws++;
-            }
-            else
-            {
+            } else {
                 kisp++;
             }
         }
 
         //tablica pomocnicza int aby wiedziec czy juz wypisalismy literki z tablicy stringow
         int[] tpp = new int[tp.length];
-        for (int i = 0; i < tpp.length; i++)
-        {
+        for (int i = 0; i < tpp.length; i++) {
             tpp[i] = 0;
         }
 
@@ -246,139 +221,18 @@ public class CryptUtil {
         int counter = 0;
 
         String M2 = "";
-        for(int i = 0; i < Mlws; i++)
-        {
-            if(counter < kis[kisc]+1)
-            {
+        for (int i = 0; i < Mlws; i++) {
+            if (counter < kis[kisc] + 1) {
                 M2 += tp[counter].charAt(tpp[counter]);
                 tpp[counter]++;
                 counter++;
-            }
-            else
-            {
+            } else {
                 kisc++;
                 i--;
                 counter = 0;
             }
         }
         return M2;
-    }
-
-    public static boolean decrypt1(String key) throws FileNotFoundException {
-        readFile();
-        writeFile(a1_deszyfr(content, Integer.parseInt(key)), FILE_NAME1);
-        return true;
-    }
-
-    private static String a1_deszyfr(String szyfr, int klucz) {
-        /*
-        działanie funkcji:
-
-        1.
-        xx
-        xxxx
-        xxxx
-        xx
-
-        2.
-        CG
-        RORY
-        YTAH
-        PP
-
-        3.
-        CRYPTOGRAPHY
-
-         */
-        String C = szyfr;
-        int n = klucz;
-
-        int counter = 1;
-        int asn = 0;
-        String[] tabs = new String[n + 1];
-
-        // później przyda nam się ta tablica do ustalenia położenia wypisanych literek
-        int[] tabs_length = new int[n + 1];
-
-        // wypełnienie tablicy pustym stringiem aby nie wypisaywało null
-        // wypelnianie tablicy zerami, bo później dodajemy do nich po 1
-        for (int i = 1; i <= n; i++) {
-            tabs[i] = "";
-            tabs_length[i] = 0;
-        }
-
-        // pętla do wypełniania tablicy literkami
-        // aby wiedziec jaka jest dlugosc poszczegolnych znakow w tablicy
-        for (int i = 0; i < C.length(); i++) {
-            tabs[counter] += "x";
-
-            // w zależności czy nasz counter jest na samym górze lub dole zmieniamy asn
-            if (counter == n) {
-                asn = 1;
-            } else if (counter == 1) {
-                asn = 0;
-            }
-
-            // jeżeli asn jest na 0 to dodajemy counter - idziemy w doł po macierzy
-            // jeżeli asn jest na 1 to odejmujemy counter - wracamy na górę macierzy
-            if (asn == 0) {
-                counter++;
-            } else if (asn == 1) {
-                counter--;
-            }
-        }
-
-        // zmienna do określania do której komórki tablicy mają być wpisywane literki
-        int tabs_counter = 1;
-
-        //tabs_length_counter
-        //zmienna do zliczania dlugosci znaku w tablicy
-        int tlc = 1;
-        String pomoc = "";
-
-        // wpisaywanie odpowiednich literek z zaszyfrowanego klucza do tablic tak aby utworzyły macierz
-        // gotową do rozkodowania
-        for (int i = 0; i < C.length(); i++) {
-            // dodawanie literki zaszyfrowanego hasla do zmiennej pomocniczej
-            pomoc += C.charAt(i);
-
-            // sprawdzanie czy długość zmiennej pomocniczej jest równe długości znaku w komórce tablicy
-            if (tlc == tabs[tabs_counter].length()) {
-                //zamiana ciągu znaku na znaki ze zmiennej pomocniczej
-                tabs[tabs_counter] = pomoc;
-                // przeniesienie się do kolejnej komórki tablicy
-                tabs_counter++;
-                // wyzerowanie zmiennych pomocniczych
-                pomoc = "";
-                tlc = 0;
-            }
-            tlc++;
-        }
-
-        String M = "";
-        counter = 1;
-        asn = 0;
-
-        // konwertowanie tablicy znaków na odszyfrowane haslo
-        for (int i = 0; i < C.length(); i++) {
-            // dodawanie niewypisanego znaku z komórki tablicy
-            M += tabs[counter].charAt(tabs_length[counter]);
-            // oznaczenie wypisanego znaku
-            tabs_length[counter]++;
-
-            if (counter == n) {
-                asn = 1;
-            } else if (counter == 1) {
-                asn = 0;
-            }
-
-            if (asn == 0) {
-                counter++;
-            } else if (asn == 1) {
-                counter--;
-            }
-        }
-        return M;
     }
 
 
@@ -422,7 +276,7 @@ public class CryptUtil {
         for (char letter : contentCharList
         ) {
             tmp = (int) letter - 65;
-            tmp = (((tmp + (26-keyInt))%26))+65;
+            tmp = (((tmp + (26 - keyInt)) % 26)) + 65;
             sb.append((char) tmp);
         }
         System.out.println(sb.toString());  /// TEST
@@ -479,142 +333,14 @@ public class CryptUtil {
         return integerList;
     }
 
-    private static String a3(String ciag, String klucz) {
-        //wyrzucanie spacji i zamienianie małych literek na wielkie
-        String M = "";
-        for (int i = 0; i < ciag.length(); i++) {
-            if (ciag.charAt(i) >= 97) {
-                M += (char) (ciag.charAt(i) - 32);
-            } else if (ciag.charAt(i) == 32) {
-                continue;
-            } else {
-                M += ciag.charAt(i);
-            }
-        }
-
-        //sortowanie klucza i sortowanie pomocniczej tablicy z indeksami posortowanych literek klucza
-        String keyso = klucz;
-        //key index sorted
-        int[] kis = new int[klucz.length()];
-        int kisp;
-        for (int i = 0; i < klucz.length(); i++) {
-            kis[i] = i;
-        }
-
-        for (int i = 0; i < klucz.length() - 1; i++) {
-            for (int j = 0; j < klucz.length() - 1; j++) {
-                if (keyso.charAt(j) > keyso.charAt(j + 1)) {
-                    kisp = kis[j];
-                    kis[j] = kis[j + 1];
-                    kis[j + 1] = kisp;
-
-                    StringBuilder ciagsb = new StringBuilder(keyso);
-                    ciagsb.setCharAt(j, keyso.charAt(j + 1));
-                    ciagsb.setCharAt(j + 1, keyso.charAt(j));
-                    keyso = ciagsb.toString();
-                }
-            }
-        }
-
-
-        // zamiana ciagu znaków na szyfr
-        int i = 0;
-        int multiplier = 0;
-        int kisc = 0;
-        int index;
-        String C = "";
-        while (i < M.length()) {
-            index = (multiplier * klucz.length()) + kis[kisc];
-            if (index < M.length()) {
-                C += M.charAt((multiplier * klucz.length()) + kis[kisc]);
-                i++;
-                multiplier++;
-            } else {
-                C += " ";
-                multiplier = 0;
-                kisc++;
-            }
-        }
-
-        return C;
-    }
 
 
     public static boolean decrypt3(String key) throws FileNotFoundException {
 
         readFile();
-        writeFile(a3_deszyfr(content, key), FILE_NAME3);
+//TODO        writeFile(a3_deszyfr(content, key), FILE_NAME3);
         return true;
     }
-
-
-    private static String a3_deszyfr(String szyfr, String klucz) {
-        //zamienianie małych literek na wielkie
-        String C = "";
-        for (int i = 0; i < szyfr.length(); i++) {
-            if (szyfr.charAt(i) >= 97) {
-                C += (char) (szyfr.charAt(i) - 32);
-            } else {
-                C += szyfr.charAt(i);
-            }
-        }
-
-        //sortowanie klucza i sortowanie pomocniczej tablicy z indeksami posortowanych literek klucza
-        String keyso = klucz;
-        //key index sorted
-        int[] kis = new int[klucz.length()];
-        int kisp;
-        for (int i = 0; i < klucz.length(); i++) {
-            kis[i] = i;
-        }
-
-        for (int i = 0; i < klucz.length() - 1; i++) {
-            for (int j = 0; j < klucz.length() - 1; j++) {
-                if (keyso.charAt(j) > keyso.charAt(j + 1)) {
-                    kisp = kis[j];
-                    kis[j] = kis[j + 1];
-                    kis[j + 1] = kisp;
-
-                    StringBuilder ciagsb = new StringBuilder(keyso);
-                    ciagsb.setCharAt(j, keyso.charAt(j + 1));
-                    ciagsb.setCharAt(j + 1, keyso.charAt(j));
-                    keyso = ciagsb.toString();
-                }
-            }
-        }
-
-        // wypełnianie ciągu znakami żeby było co zamieniać
-        String M = "";
-        for (int i = 0; i < C.length(); i++) {
-            if (C.charAt(i) != 32) {
-                M += "x";
-            }
-        }
-
-        //wpisywanie znaków do ciągu z szyfru
-        int i = 0;
-        int multiplier = 0;
-        int kisc = 0;
-        int index;
-
-        while (i < C.length()) {
-            if (C.charAt(i) != 32) {
-                index = (multiplier * klucz.length()) + kis[kisc];
-
-                StringBuilder sb = new StringBuilder(M);
-                sb.setCharAt(index, C.charAt(i));
-                M = sb.toString();
-                i++;
-                multiplier++;
-            } else {
-                multiplier = 0;
-                kisc++;
-                i++;
-            }
-        }
-        return M;
-    }
-
 
 }
 
