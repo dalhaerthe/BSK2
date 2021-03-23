@@ -472,6 +472,102 @@ public class CryptUtil {
         }
         return M;
     }
+
+    public static String ps2_a1(String ciag, String klucz)
+    {
+        //wyrzucanie spacji i zamienianie małych literek na wielkie
+        String M = "";
+        for (int i = 0; i < ciag.length(); i++)
+        {
+            if(ciag.charAt(i) >= 97)
+            {
+                M += (char)(ciag.charAt(i) - 32);
+            }
+            else if(ciag.charAt(i) == 32)
+            {
+                continue;
+            }
+            else
+            {
+                M += ciag.charAt(i);
+            }
+        }
+
+        //sortowanie klucza i sortowanie pomocniczej tablicy z indeksami posortowanych literek klucza
+        String keyso = klucz;
+        //key index sorted
+        int[] kis = new int[klucz.length()];
+        int kisp;
+        for ( int i = 0; i < klucz.length(); i++)
+        {
+            kis[i] = i;
+        }
+
+        for ( int i = 0; i < klucz.length()-1; i++)
+        {
+            for (int j = 0; j < klucz.length()-1; j++)
+            {
+                if(keyso.charAt(j) > keyso.charAt(j+1))
+                {
+                    kisp = kis[j];
+                    kis[j] = kis[j+1];
+                    kis[j+1] = kisp;
+
+                    StringBuilder ciagsb = new StringBuilder(keyso);
+                    ciagsb.setCharAt(j,keyso.charAt(j+1));
+                    ciagsb.setCharAt(j+1,keyso.charAt(j));
+                    keyso = ciagsb.toString();
+                }
+            }
+        }
+
+        for(int i = 0; i < kis.length; i++)
+        {
+            System.out.print(kis[i] + " ");
+        }
+
+        //tablica pomocnicza do wpisywania literek
+        String[] tp = new String[klucz.length()];
+        int tpc = 0;
+        for (int i = 0; i < klucz.length(); i++)
+        {
+            tp[i] = "";
+        }
+
+
+        int kisc = 0;
+        int counter = 0;
+
+        for(int i = 0; i < M.length(); i++)
+        {
+            if(counter <= kis[kisc])
+            {
+                tp[tpc] += M.charAt(i);
+                tpc++;
+                counter++;
+
+                System.out.println(M.charAt(i) + "   tpc - " + tpc + "   counter - " + counter);
+            }
+            else
+            {
+                kisc++;
+                counter = 0;
+                tpc = 0;
+                i--;
+
+                System.out.println("else");
+            }
+        }
+
+        String C = "";
+        for(int i = 0; i < tp.length; i++)
+        {
+            C+= tp[kis[i]];
+            C+= " ";
+        }
+
+        return C;
+    }
 }
 
 
