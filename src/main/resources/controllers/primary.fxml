@@ -40,7 +40,7 @@
                <effect>
                   <Reflection />
                </effect>
-               <tooltip> <Tooltip text="liczba 3-20" /> </tooltip>
+               <tooltip> <Tooltip text="liczba 3-7" /> </tooltip>
             </Button>
             <Button fx:id="okButton3" mnemonicParsing="false" onAction="#readKey3" prefHeight="25.0" prefWidth="149.0" text="SZYFR.  VIGENERE’A">
                <effect>

@@ -18,7 +18,7 @@
         </font></Label>
 
       <Label text=" -  do  algorytmu1: ciąg liter (do 15 ) bez polskich znaków" />
-      <Label text=" -  do  algorytmu2: liczba 3-7" />
+      <Label text=" -  do  algorytmu2: liczba 3-20" />
             <Label text=" -  do algorytmu3: ciąg liter -  bez polskich znaków - równy długością tekstowi jawnemu. Klucz  o innej długości zostanie skorygowany automatycznie" />
         <Button fx:id="secondaryButton" onAction="#switchToPrimary" text="Powrót" />
     </children>

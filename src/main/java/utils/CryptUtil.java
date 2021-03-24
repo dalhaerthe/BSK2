@@ -279,7 +279,7 @@ public class CryptUtil {
             tmp = (((tmp + (26 - keyInt)) % 26)) + 65;
             sb.append((char) tmp);
         }
-        System.out.println(sb.toString());  /// TEST
+
         filesController.writeFile(sb.toString(), FILE_NAME2);
         return true;
     }
@@ -317,10 +317,9 @@ public class CryptUtil {
             sb.append(Character.toString(tmp2 + 65));
 
             i++;
-
         }
 
-        writeFile(sb.toString(), FILE_NAME3);/// so podmiany
+        writeFile(sb.toString(), FILE_NAME3);
         return true;
     }
 

@@ -153,7 +153,7 @@ public class PrimaryController {
             if (validInputKey2()) return;
 
             showLabel("Deszyfrowanie alg2. - gotowe!");
-//TODO: zrefaktoryzować wczytywanie - ta sama metoda do każdego przycisku wystarczy
+
 
             CryptUtil.decrypt2(key);
         }
@@ -176,44 +176,6 @@ public class PrimaryController {
         }
         return false;
 
-//        int x;
-//        try {
-//
-//            x = Integer.valueOf(key);
-//        } catch (NumberFormatException e) {
-//            return showBadKeyAllert();
-//        }
-//
-//        if (key.equals("") || key == null || x < 1) {
-//            return showBadKeyAllert();
-//        }
-//
-//        int[] tab = CryptUtil.keyToArrayWrapper(key);
-//
-//
-//        List<Integer> keyList = new ArrayList<>(tab.length);
-//
-//
-//        for (int xx : tab            //konwersja tablicy na listę (Lists.newArrayList i  Arrays.asList tu nie działają) - wygodniejsza do operacji
-//        ) {
-//            keyList.add(xx);
-//        }
-//
-//        Collections.sort(keyList);
-//
-//        if (keyList.get(0) != 1)           //czy zawiera 1
-//        {
-//            return showBadKeyAllert();
-//        }
-//
-//        for (int i = 1; i < keyList.size(); i++)
-//
-//            if (!(i + 1 == keyList.get(i))) {
-//
-//                return showBadKeyAllert();
-//            }
-//
-//        return false;
     }
 
     private boolean showBadKeyAllert() {
@@ -292,7 +254,6 @@ public class PrimaryController {
             key = sb.toString();
 
 
-
 //TODO jelśi równy - nie ścinamy
             if (key.length() > inputText.length() - 1)
                 keyField.setText(trimKey(key, inputText.length()));
@@ -300,7 +261,7 @@ public class PrimaryController {
         } else if (key.length() > inputText.length() - 1) {
             Dialogs.toLongKey();
 
-            key=(trimKey(key, inputText.length()));
+            key = (trimKey(key, inputText.length()));
             keyField.setText(key);
 
         }
