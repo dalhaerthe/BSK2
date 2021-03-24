@@ -34,19 +34,19 @@
                <effect>
                   <Reflection />
                </effect>
-               <tooltip> <Tooltip text="klucz: liczba od 2 do 7" /> </tooltip>
+               <tooltip> <Tooltip text="ciąg liter (do 15 ) bez polskich znaków" /> </tooltip>
             </Button>
             <Button fx:id="okButton2" mnemonicParsing="false" onAction="#readKey2" prefHeight="25.0" prefWidth="149.0" text="SZYFR. CEZARA">
                <effect>
                   <Reflection />
                </effect>
-               <tooltip> <Tooltip text="klucz: kilka kolejnych cyfr od 1, w kolejności innej niż naturalna" /> </tooltip>
+               <tooltip> <Tooltip text="liczba 3-20" /> </tooltip>
             </Button>
             <Button fx:id="okButton3" mnemonicParsing="false" onAction="#readKey3" prefHeight="25.0" prefWidth="149.0" text="SZYFR.  VIGENERE’A">
                <effect>
                   <Reflection />
                </effect>
-               <tooltip> <Tooltip text="klucz: dowolne słowo bez polskich znaków (ciąg liter)" /> </tooltip>
+               <tooltip> <Tooltip text="ciąg liter -  bez polskich znaków - równy długością tekstowi jawnemu" /> </tooltip>
             </Button>
          </children>
       </HBox>
