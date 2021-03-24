@@ -320,7 +320,6 @@ public class CryptUtil {
 
         }
 
-
         writeFile(sb.toString(), FILE_NAME3);/// so podmiany
         return true;
     }
@@ -333,35 +332,38 @@ public class CryptUtil {
         return integerList;
     }
 
-    public static String ps2_a3_d(String szyfr, String klucz)
-    {
+
+    /**
+     * wrapper
+     *
+     * @param key
+     * @return
+     * @throws FileNotFoundException
+     */
+    public static boolean decrypt3(String key) throws FileNotFoundException {
+
+        readFile();
+        content = content.substring(1);           //usuwa zbędny znak na początku
+        writeFile(ps2_a3_d(content, key), FILE_NAME3);
+        return true;
+    }
+
+    public static String ps2_a3_d(String szyfr, String klucz) {
         String M = "";
         char k, c;
-        for(int i = 0; i < szyfr.length(); i++)
-        {
-            k = (char)(klucz.charAt(i)-65);
-            c = (char)(szyfr.charAt(i)-65);
-            if(c > k)
-            {
-                M += (char)(((c - k) % 26)+65);
-            }
-            else
-            {
-                M += (char)(((c + 26 - k) % 26)+65);
+        for (int i = 0; i < szyfr.length(); i++) {
+            k = (char) (klucz.charAt(i) - 65);
+            c = (char) (szyfr.charAt(i) - 65);
+            if (c > k) {
+                M += (char) (((c - k) % 26) + 65);
+            } else {
+                M += (char) (((c + 26 - k) % 26) + 65);
             }
 
         }
         return M;
     }
 
-
-
-    public static boolean decrypt3(String key) throws FileNotFoundException {
-
-        readFile();
-        writeFile(ps2_a3_d(content, key), FILE_NAME3);
-        return true;
-    }
 
 }
 
