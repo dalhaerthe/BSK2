@@ -333,6 +333,27 @@ public class CryptUtil {
         return integerList;
     }
 
+    public static String ps2_a3_d(String szyfr, String klucz)
+    {
+        String M = "";
+        char k, c;
+        for(int i = 0; i < szyfr.length(); i++)
+        {
+            k = (char)(klucz.charAt(i)-65);
+            c = (char)(szyfr.charAt(i)-65);
+            if(c > k)
+            {
+                M += (char)(((c - k) % 26)+65);
+            }
+            else
+            {
+                M += (char)(((c + 26 - k) % 26)+65);
+            }
+
+        }
+        return M;
+    }
+
 
 
     public static boolean decrypt3(String key) throws FileNotFoundException {
