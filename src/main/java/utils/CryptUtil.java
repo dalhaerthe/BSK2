@@ -359,7 +359,7 @@ public class CryptUtil {
     public static boolean decrypt3(String key) throws FileNotFoundException {
 
         readFile();
-//TODO        writeFile(a3_deszyfr(content, key), FILE_NAME3);
+        writeFile(ps2_a3_d(content, key), FILE_NAME3);
         return true;
     }
 
