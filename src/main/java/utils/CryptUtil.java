@@ -240,7 +240,7 @@ public class CryptUtil {
      * algorytm 2:
      *
      * @param key
-     * @return
+     * @return  czy powodzenie
      * @throws FileNotFoundException
      */
 
