@@ -65,6 +65,7 @@ public class CryptUtil {
      */
     public static boolean encrypt1(String key) throws FileNotFoundException {
         readFile();
+        transformInput();
         content = content.substring(1);   //wywalenie pierwszego niepotrzebnego znaku, który coś w którym momencie dodaje
         writeFile(ps2_a1(content, key), FILE_NAME1);
         return true;
@@ -72,16 +73,19 @@ public class CryptUtil {
 
     public static String ps2_a1(String ciag, String klucz) {
         //wyrzucanie spacji i zamienianie małych literek na wielkie
-        String M = "";
-        for (int i = 0; i < ciag.length(); i++) {
-            if (ciag.charAt(i) >= 97) {
-                M += (char) (ciag.charAt(i) - 32);
-            } else if (ciag.charAt(i) == 32) {
-                continue;
-            } else {
-                M += ciag.charAt(i);
-            }
-        }
+
+
+        String M = ciag;
+
+//        for (int i = 0; i < ciag.length(); i++) {
+//            if (ciag.charAt(i) >= 97) {
+//                M += (char) (ciag.charAt(i) - 32);
+//            } else if (ciag.charAt(i) == 32) {
+//                continue;
+//            } else {
+//                M += ciag.charAt(i);
+//            }
+//        }
 
         //sortowanie klucza i sortowanie pomocniczej tablicy z indeksami posortowanych literek klucza
         String keyso = klucz;
@@ -251,6 +255,8 @@ public class CryptUtil {
         int keyInt = Integer.parseInt(key);
         int tmp;
         StringBuilder sb = new StringBuilder();
+        transformInput();
+
         List<Character> contentCharList = content.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
         contentCharList.remove(0);      //korekta na tajemniczy znak istniejący na początku
 
@@ -262,6 +268,15 @@ public class CryptUtil {
         }
         filesController.writeFile(sb.toString(), FILE_NAME2);
         return true;
+    }
+
+    /**
+     * usuwa spacje z łańcucha wejściowego i zamienia małe litery na wielkie
+     */
+
+    private static void transformInput() {
+        content=content.replace(" ","");
+        content=content.toUpperCase(Locale.ROOT);
     }
 
 
