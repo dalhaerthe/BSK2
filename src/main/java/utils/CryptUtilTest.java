@@ -55,7 +55,16 @@ public class CryptUtilTest {
    String a ="HERE IS A SECRET MESSAGE ENCIPHERED BY TRANSPOSITION";
    String key= "CONVENIENC";
 
-   System.out.println(CryptUtil.encrypt1(key));
+   System.out.println(CryptUtil.ps2_a1(a,key));
 }
+
+
+    @Test
+    public void tstD() throws FileNotFoundException {
+        String a ="HEEEDRINSITSIPAEIGHSERENEBNSAPTOTRCMERAOESCYS";
+        String key= "CONVENIENC";
+
+        System.out.println(CryptUtil.ps2_a1_d(a,key));
+    }
 
 }
