@@ -72,6 +72,7 @@ public class CryptUtil {
     }
 
     public static String ps2_a1(String ciag, String klucz) {
+        //string przychodzi juz bez spacji i jako wielkie litery
         //wyrzucanie spacji i zamienianie małych literek na wielkie
 
 
