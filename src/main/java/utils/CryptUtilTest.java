@@ -51,24 +51,27 @@ public class CryptUtilTest {
     }
 
 @Test
-    public void tst() throws FileNotFoundException {
-   String a ="HERE IS A SECRET MESSAGE ENCIPHERED BY TRANSPOSITION";
+    public void tst_a1() throws FileNotFoundException {
+   String a ="HEREISASECRETMESSAGEENCIPHEREDBYTRANSPOSITION";
    String key= "CONVENIENCE";
 
    System.out.println(CryptUtil.ps2_a1(a,key));
+   //OK
 }
 
 
     @Test
-    public void tstD() throws FileNotFoundException {
-        String a ="HEEEDRINSITSIPAEIGHSERENEBNSAPTOTRCMERAOESCYS";
+    public void tst_ps2_a1_d() throws FileNotFoundException {
+        String a ="HEESPNIRRSSEESEIYASCBTEMGEPNANDICTRTAHSOIEERO";
+
         String key= "CONVENIENCE";
 
         System.out.println(CryptUtil.ps2_a1_d(a,key));
+
     }
 
     @Test
-    public void tstAlg3() throws FileNotFoundException {
+    public void tstAlg3()  {
         String a ="CRYPTOGRAPHY";
         String key= "BREAKBREAKBR";
 
@@ -79,9 +82,21 @@ public class CryptUtilTest {
     public void tstAlg3decr() throws FileNotFoundException {
 
         String key= "BREAKBREAKBR";
+        String szyfr="DICPDPXVAZIP";
 
-        System.out.println(CryptUtil.decrypt3(key));
+        System.out.println(CryptUtil.ps2_a3_d(szyfr,key));
     }
+
+
+    @Test
+    public void tstAlg3decrZInnymKluczem() throws FileNotFoundException {
+
+        String key= "jeosuforywba";
+        String szyfr="VGGJMDFCAKSJ";
+
+        System.out.println(CryptUtil.ps2_a3_d(szyfr,key));
+    }
+
 
 
 }

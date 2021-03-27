@@ -256,11 +256,9 @@ public class PrimaryController {
 
             key = sb.toString();
 
-if (key.length()==inputText.length())
-    return false;
 
-//TODO jeśli równy - nie ścinamy
-            if (key.length() > inputText.length())
+
+            if (key.length() > inputText.length()-1)
                 keyField.setText(trimKey(key, inputText.length()));
             else keyField.setText(key);
         } else if (key.length() > inputText.length()) {

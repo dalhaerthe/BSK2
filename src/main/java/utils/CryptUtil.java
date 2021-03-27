@@ -65,7 +65,7 @@ public class CryptUtil {
      */
     public static boolean encrypt1(String key) throws FileNotFoundException {
         readFile();
-      //  transformInput();
+        transformInput();
         content = content.substring(1);   //wywalenie pierwszego niepotrzebnego znaku, który coś w którym momencie dodaje
         writeFile(ps2_a1(content, key), FILE_NAME1);
         return true;
@@ -77,16 +77,16 @@ public class CryptUtil {
 
 
         String M = ciag;
-
-        for (int i = 0; i < ciag.length(); i++) {
-            if (ciag.charAt(i) >= 97) {
-                M += (char) (ciag.charAt(i) - 32);
-            } else if (ciag.charAt(i) == 32) {
-                continue;
-            } else {
-                M += ciag.charAt(i);
-            }
-        }
+//
+//        for (int i = 0; i < ciag.length(); i++) {
+//            if (ciag.charAt(i) >= 97) {
+//                M += (char) (ciag.charAt(i) - 32);
+//            } else if (ciag.charAt(i) == 32) {
+//                continue;
+//            } else {
+//                M += ciag.charAt(i);
+//            }
+//        }
 
         //sortowanie klucza i sortowanie pomocniczej tablicy z indeksami posortowanych literek klucza
         String keyso = klucz;
@@ -153,7 +153,7 @@ public class CryptUtil {
     public static boolean decrypt1(String key) throws FileNotFoundException {
         readFile();
 
-        //content = content.substring(1);
+        content = content.substring(1);
         writeFile(ps2_a1_d(content, key), FILE_NAME1);
         return true;
     }
@@ -268,7 +268,7 @@ public class CryptUtil {
             tmp = ((tmp + keyInt) % 26) + 65;
             sb.append((char) tmp);
         }
-        filesController.writeFile(sb.toString(), FILE_NAME2);
+        filesController.writeFile(sb.toString().substring(1), FILE_NAME2);
         return true;
     }
 
@@ -297,7 +297,7 @@ public class CryptUtil {
             sb.append((char) tmp);
         }
 
-        filesController.writeFile(sb.toString(), FILE_NAME2);
+        filesController.writeFile(sb.toString().substring(1), FILE_NAME2);
         return true;
     }
 
@@ -331,7 +331,7 @@ public class CryptUtil {
         contentEncoded = lettersToNumbers(content);
 
 
-          contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i p[odstepnie generuje problemy ;)
+          contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i podstepnie generuje problemy ;)
         StringBuilder sb = new StringBuilder();
         int i = 0;
         for (int x : contentEncoded
