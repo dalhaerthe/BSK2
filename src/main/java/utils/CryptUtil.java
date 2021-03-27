@@ -65,7 +65,7 @@ public class CryptUtil {
      */
     public static boolean encrypt1(String key) throws FileNotFoundException {
         readFile();
-        transformInput();
+      //  transformInput();
         content = content.substring(1);   //wywalenie pierwszego niepotrzebnego znaku, który coś w którym momencie dodaje
         writeFile(ps2_a1(content, key), FILE_NAME1);
         return true;
@@ -78,15 +78,15 @@ public class CryptUtil {
 
         String M = ciag;
 
-//        for (int i = 0; i < ciag.length(); i++) {
-//            if (ciag.charAt(i) >= 97) {
-//                M += (char) (ciag.charAt(i) - 32);
-//            } else if (ciag.charAt(i) == 32) {
-//                continue;
-//            } else {
-//                M += ciag.charAt(i);
-//            }
-//        }
+        for (int i = 0; i < ciag.length(); i++) {
+            if (ciag.charAt(i) >= 97) {
+                M += (char) (ciag.charAt(i) - 32);
+            } else if (ciag.charAt(i) == 32) {
+                continue;
+            } else {
+                M += ciag.charAt(i);
+            }
+        }
 
         //sortowanie klucza i sortowanie pomocniczej tablicy z indeksami posortowanych literek klucza
         String keyso = klucz;
@@ -152,7 +152,8 @@ public class CryptUtil {
 
     public static boolean decrypt1(String key) throws FileNotFoundException {
         readFile();
-        content = content.substring(1);
+
+        //content = content.substring(1);
         writeFile(ps2_a1_d(content, key), FILE_NAME1);
         return true;
     }
@@ -259,7 +260,7 @@ public class CryptUtil {
         transformInput();
 
         List<Character> contentCharList = content.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
-        contentCharList.remove(0);      //korekta na tajemniczy znak istniejący na początku
+        //contentCharList.remove(0);      //korekta na tajemniczy znak istniejący na początku
 
         for (char letter : contentCharList
         ) {
@@ -287,7 +288,7 @@ public class CryptUtil {
         int tmp;
         StringBuilder sb = new StringBuilder();
         List<Character> contentCharList = content.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
-        contentCharList.remove(0);      //korekta na tajemniczy znak istniejący na początku
+        //contentCharList.remove(0);      //korekta na tajemniczy znak istniejący na początku
 
         for (char letter : contentCharList
         ) {
@@ -302,7 +303,7 @@ public class CryptUtil {
 
 
     /**
-     * algorytm 3.
+     * algorytm 3. - wrapper
      *
      * @param key
      * @return
@@ -315,15 +316,22 @@ public class CryptUtil {
         key = key.toLowerCase(Locale.ROOT);               //zamiana liter na wielkie
         content = content.toLowerCase(Locale.ROOT);
 
+
+        writeFile(ps2_a3(content,key), FILE_NAME3);
+        return true;
         //algorytm3:
 
 //key=rmvPolishSigns(key);
+
+    }
+
+    public static String ps2_a3(String content, String key) {
         List<Integer> keyEncoded, contentEncoded;
         keyEncoded = lettersToNumbers(key);           // tworzenie list znaków zakodowanych liczbą - kolejnością w alfabecie
         contentEncoded = lettersToNumbers(content);
 
 
-        contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i p[odstepnie generuje problemy ;)
+          contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i p[odstepnie generuje problemy ;)
         StringBuilder sb = new StringBuilder();
         int i = 0;
         for (int x : contentEncoded
@@ -333,10 +341,10 @@ public class CryptUtil {
             sb.append(Character.toString(tmp2 + 65));
 
             i++;
-        }
 
-        writeFile(sb.toString(), FILE_NAME3);
-        return true;
+        }
+        return sb.toString();
+
     }
 
     private static List<Integer> lettersToNumbers(String key) {

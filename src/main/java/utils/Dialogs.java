@@ -86,4 +86,14 @@ public class Dialogs {
 
 
         }
+
+    public static void toShortKey3() {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setTitle("Ostrzeżenie");
+        a.setHeaderText("Hasło jest zbyt krótkie.");
+        a.setContentText("Prosze podać klucz z min 8 znaków");
+        a.setX(100);
+
+        a.show();
+    }
 }

@@ -127,7 +127,11 @@ public class PrimaryController {
             if ((int) x < 65 || ((int) x > 90 && (int) x < 97) || (int) x > 122)
                 return showBadKeyAllert();
 
-
+//            else if(key.length()<7)
+//            {
+//                Dialogs.toShortKey3();
+//                return true;
+//            }
         }
 
         return false;
@@ -195,10 +199,9 @@ public class PrimaryController {
 
             if (validInputKey3()) return;
 
-            {
+
                 showLabel("Szyfrowanie alg3. - gotowe!");
 
-            }
 
 
             CryptUtil.encrypt3(key);
@@ -248,17 +251,19 @@ public class PrimaryController {
             int tmp = (int) Math.ceil(inputText.length() / key.length());
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < tmp; ++i)         //'przedłużanie' klucza przez ziwlokrotnienie i przycięcie
+            for (int i = 0; i < tmp; ++i)         //'przedłużanie' klucza przez zwlokrotnienie i przycięcie
                 sb.append(key);
 
             key = sb.toString();
 
+if (key.length()==inputText.length())
+    return false;
 
-//TODO jelśi równy - nie ścinamy
-            if (key.length() > inputText.length() - 1)
+//TODO jeśli równy - nie ścinamy
+            if (key.length() > inputText.length())
                 keyField.setText(trimKey(key, inputText.length()));
             else keyField.setText(key);
-        } else if (key.length() > inputText.length() - 1) {
+        } else if (key.length() > inputText.length()) {
             Dialogs.toLongKey();
 
             key = (trimKey(key, inputText.length()));
