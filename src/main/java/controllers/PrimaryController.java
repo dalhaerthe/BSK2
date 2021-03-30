@@ -3,10 +3,7 @@ package controllers;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.CryptoPrimitive;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -17,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.Effect;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import utils.CryptUtil;
@@ -43,6 +41,22 @@ public class PrimaryController {
     @FXML
     private boolean mode;       //false - szyfrowanie, true - deszyfrowanie
     private String key;
+
+    @FXML
+    ToggleButton x4;
+    @FXML
+    ToggleButton x3;
+    @FXML
+    ToggleButton x2;
+    @FXML
+    ToggleButton x1;
+    @FXML
+    ToggleButton x0;
+
+
+    private Boolean [] polynomial = new Boolean[5];   //wielomian w postaci mapy: potęga(index) -wartość (true/false)
+    int register=0;
+
 
 
     @FXML
@@ -294,4 +308,70 @@ public class PrimaryController {
     public void about(ActionEvent actionEvent) {
         Dialogs.about();
     }
-}
+
+    /**
+     * odczytuje układ przycisków do wprowadzania wielomianu
+     * zapisuje od razu do liczby binarnej 5-bitowej
+     * @param mouseEvent
+     */
+
+    public void readPolynomial(MouseEvent mouseEvent) {
+
+//if(x0.isSelected()==true)
+//    polynomial[0]=true;
+//else
+//    polynomial[0]=false;
+//
+//
+//    if(x1.isSelected()==true)
+//    polynomial[1]=true;
+//else
+//    polynomial[1]=false;
+//
+//if(x2.isSelected()==true)
+//        polynomial[2]=true;
+//        else
+//        polynomial[2]=false;
+//
+//        if(x3.isSelected()==true)
+//        polynomial[3]=true;
+//        else
+//        polynomial[3]=false;
+//
+//        if(x4.isSelected()==true)
+//            polynomial[4]=true;
+//        else
+//            polynomial[4]=false;
+
+
+
+        if(x0.isSelected()==true)
+            register |=1;
+        else
+            register &= ~1;
+
+
+        if(x1.isSelected()==true)
+            register |=2;
+        else
+            register &= ~2;
+
+        if(x2.isSelected()==true)
+            register |=4;
+        else
+            register &= ~4;
+
+        if(x3.isSelected()==true)
+            register |=8;
+        else
+            register &= ~8;
+
+        if(x4.isSelected()==true)
+            register |=16;
+        else
+            register &= ~16;
+        System.out.println(Integer.toBinaryString(register));       /// testowo
+
+    }
+                }
+

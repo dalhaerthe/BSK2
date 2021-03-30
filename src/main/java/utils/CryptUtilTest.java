@@ -98,5 +98,20 @@ public class CryptUtilTest {
     }
 
 
+    @Test
+    public void tymczasowaDoEksperymentów(){
+
+        int a=2;
+        System.out.println(Integer.toBinaryString(a));
+        a=a<<8;
+        a+=2;
+        System.out.println(Integer.toBinaryString(a));
+a-=4;
+        System.out.println(Integer.toBinaryString(a));
+
+
+
+    }
+
 
 }
