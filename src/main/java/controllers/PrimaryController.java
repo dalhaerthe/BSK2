@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.CryptoPrimitive;
@@ -17,6 +18,8 @@ import javafx.scene.effect.Effect;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import utils.CryptUtil;
 import utils.Dialogs;
 
@@ -307,6 +310,19 @@ public class PrimaryController {
 
     public void about(ActionEvent actionEvent) {
         Dialogs.about();
+    }
+
+    /**
+    *odczyt plików
+     */
+    public void viewFiles(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Add wave files");
+
+
+        File file = fileChooser.showOpenDialog(new Stage());
+        if(file!=null)
+            FilesController.readFileToStreram(file);
     }
 
     /**

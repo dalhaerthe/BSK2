@@ -30,7 +30,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <HBox layoutX="69.0" layoutY="272.0" prefHeight="100.0" prefWidth="463.0">
+      <HBox layoutX="69.0" layoutY="272.0" prefHeight="48.0" prefWidth="463.0">
          <children>
             <Button fx:id="okButton1" mnemonicParsing="false" onAction="#readKey1" prefHeight="25.0" prefWidth="161.0" text="PRZEST. MACIERZOWE - C">
                <effect>
@@ -76,11 +76,11 @@
             <ColorAdjust />
          </effect>
       </Label>
-      <Separator layoutX="4.0" layoutY="457.0" prefHeight="0.0" prefWidth="681.0" />
-      <Label layoutX="256.0" layoutY="466.0" text="Proszę wybrać postać wielomianu" />
-      <HBox layoutX="225.0" layoutY="508.0" prefHeight="25.0" prefWidth="178.0">
+      <Separator layoutX="4.0" layoutY="355.0" prefHeight="0.0" prefWidth="681.0" />
+      <Label layoutX="261.0" layoutY="375.0" text="Proszę wybrać postać wielomianu" />
+      <HBox layoutX="225.0" layoutY="405.0" prefHeight="35.0" prefWidth="250.0">
          <children>
-            <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" prefHeight="30.0" prefWidth="50.0" text="x^4" fx:id="x4">
+            <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" prefHeight="24.0" prefWidth="50.0" text="x^4" fx:id="x4">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -116,6 +116,7 @@
             </ToggleButton>
          </children>
       </HBox>
+      <Button layoutX="497.0" layoutY="405.0" mnemonicParsing="false" onAction="#viewFiles" text="Ładowanie pliku do szyfrowania LFSR" />
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

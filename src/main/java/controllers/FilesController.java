@@ -4,6 +4,7 @@ import utils.CryptUtil;
 import utils.Dialogs;
 
 import java.io.*;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -13,6 +14,21 @@ public class FilesController {
 
 
     public static final String INPUT_FILE = CryptUtil.FILES_PATH + "dane.txt";
+
+    /**
+     * odczytuje plik do szyfrowania strumieniowego
+     * @param file
+     */
+    public static void readFileToStreram(File file) {
+        RandomAccessFile stream=null;
+
+        try {
+            stream = new RandomAccessFile(file,"r");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public String getText() {
         return result;
