@@ -1,6 +1,7 @@
 package utils;
 
 import controllers.FilesController;
+import controllers.PrimaryController;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -386,6 +387,19 @@ public class CryptUtil {
         }
         return M;
     }
+
+public static void LFSRGenerator(){
+
+        Thread thread2 = new Thread(()-> { while (PrimaryController.notify_==false){
+        System.out.println("aaaaaaaaaaaaaaaaaaa");
+    }
+            System.out.println("stop");});
+
+        thread2.start();
+        Boolean[] polynomial = PrimaryController.getPolynomial();
+
+
+}
 
 
 }

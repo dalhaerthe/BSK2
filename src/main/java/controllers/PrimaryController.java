@@ -27,6 +27,8 @@ import static java.lang.Thread.sleep;
 
 public class PrimaryController {
 
+    public static boolean notify_=false;
+
     @FXML
     private Button okButton1;    //algorytm 1
     @FXML
@@ -57,7 +59,16 @@ public class PrimaryController {
     ToggleButton x0;
 
 
-    private Boolean [] polynomial = new Boolean[5];   //wielomian w postaci mapy: potęga(index) -wartość (true/false)
+    /**
+     *
+     * @return tablicę opisującą wielomian
+     */
+
+    public static Boolean[] getPolynomial() {
+        return polynomial;
+    }
+
+    private static Boolean [] polynomial = new Boolean[5];   //wielomian w postaci mapy: potęga(index) -wartość (true/false)
     int register=0;
 
 
@@ -333,31 +344,31 @@ public class PrimaryController {
 
     public void readPolynomial(MouseEvent mouseEvent) {
 
-//if(x0.isSelected()==true)
-//    polynomial[0]=true;
-//else
-//    polynomial[0]=false;
-//
-//
-//    if(x1.isSelected()==true)
-//    polynomial[1]=true;
-//else
-//    polynomial[1]=false;
-//
-//if(x2.isSelected()==true)
-//        polynomial[2]=true;
-//        else
-//        polynomial[2]=false;
-//
-//        if(x3.isSelected()==true)
-//        polynomial[3]=true;
-//        else
-//        polynomial[3]=false;
-//
-//        if(x4.isSelected()==true)
-//            polynomial[4]=true;
-//        else
-//            polynomial[4]=false;
+if(x0.isSelected()==true)
+    polynomial[0]=true;
+else
+    polynomial[0]=false;
+
+
+    if(x1.isSelected()==true)
+    polynomial[1]=true;
+else
+    polynomial[1]=false;
+
+if(x2.isSelected()==true)
+        polynomial[2]=true;
+        else
+        polynomial[2]=false;
+
+        if(x3.isSelected()==true)
+        polynomial[3]=true;
+        else
+        polynomial[3]=false;
+
+        if(x4.isSelected()==true)
+            polynomial[4]=true;
+        else
+            polynomial[4]=false;
 
 
 
@@ -389,5 +400,18 @@ public class PrimaryController {
         System.out.println(Integer.toBinaryString(register));       /// testowo
 
     }
-                }
+
+    public void setNotify_(ActionEvent actionEvent) {
+        notify_=true;
+    }
+
+    /**
+     * uruchamia generowanie LFSR
+     * @param actionEvent
+     */
+    public void startGenerator(ActionEvent actionEvent) {
+        notify_=false;
+        CryptUtil.LFSRGenerator();
+    }
+}
 
