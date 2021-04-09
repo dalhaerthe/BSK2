@@ -4,6 +4,8 @@ import utils.CryptUtil;
 import utils.Dialogs;
 
 import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -18,8 +20,9 @@ public class FilesController {
     /**
      * odczytuje plik do szyfrowania strumieniowego
      * @param file
+     * @return lista bajtów odczytanych z pliku
      */
-    public static void readFileToStreram(File file) {
+    public static List<Byte> readFileToStreram(File file) {
         RandomAccessFile stream=null;
 
         try {
@@ -28,7 +31,28 @@ public class FilesController {
             e.printStackTrace();
         }
 
+        List<Byte> byteList = new LinkedList<>();
+
+
+        while(true)
+
+        try {
+        byteList.add(stream.readByte());
+
+        } catch (EOFException eof){
+            break;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /// kontrolnie
+        for (byte b: byteList
+             ) System.out.println(Integer.toBinaryString(b));
+
+return byteList;
+
     }
+
 
     public String getText() {
         return result;
