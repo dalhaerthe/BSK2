@@ -391,15 +391,45 @@ public class CryptUtil {
 public static void LFSRGenerator(){
 
         Thread thread2 = new Thread(()-> { while (PrimaryController.notify_==false){
-        System.out.println("aaaaaaaaaaaaaaaaaaa");
+        System.out.println("aaaaaaaaaaaaaaaaaaa");  ///
     }
-            System.out.println("stop");});
+            System.out.println("stop");});          ///
 
         thread2.start();
         Boolean[] polynomial = PrimaryController.getPolynomial();
 
 
 }
+
+    /**
+     * szyfrowanie strumieniowe
+     * @param bytes
+     */
+    public static void encryptByStream(byte[] bytes) {
+
+        short [] byte4 = new short[4];
+        List<String> bytes4ListAsString = new ArrayList<>();
+
+        //zamiana na słowa 4-bitowe
+
+
+        for ( byte b: bytes
+
+             ) {
+String tmp=String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
+
+            System.out.println(tmp);
+bytes4ListAsString.add(tmp.substring(0,4));
+bytes4ListAsString.add(tmp.substring(4));
+        }
+/// kontrolnie:
+        for (String a: bytes4ListAsString
+             ) {
+            System.out.println(a);
+
+        }
+
+    }
 
 
 }

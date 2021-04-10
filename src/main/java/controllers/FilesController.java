@@ -1,13 +1,11 @@
 package controllers;
 
+
 import utils.CryptUtil;
 import utils.Dialogs;
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 
 //wczytywanie plików - TODO: czy wczytywać cały plik do jednej zmiennej string ??
@@ -20,36 +18,36 @@ public class FilesController {
     /**
      * odczytuje plik do szyfrowania strumieniowego
      * @param file
-     * @return lista bajtów odczytanych z pliku
+     * @return tablica bajtów odczytanych z pliku
      */
-    public static List<Byte> readFileToStreram(File file) {
-        RandomAccessFile stream=null;
+    public static void readFileToStreram(File file) {
+
+        InputStream inputStream=null;
+        InputStream inputStream2=null;
+        byte[] bytes=null;
 
         try {
-            stream = new RandomAccessFile(file,"r");
+            inputStream = new FileInputStream(file);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        List<Byte> byteList = new LinkedList<>();
-
-
-        while(true)
-
         try {
-        byteList.add(stream.readByte());
+            bytes = new byte[inputStream.readAllBytes().length];
+                    } catch (IOException e) {
+            e.printStackTrace();
+        }
+// strumień po odczytaniu długości (potrzebnej do zainicjowania tablicy) nie pozwala na odczyt ponowny bajtów, stąd druga inicjalizacja
+        try {
+            inputStream=new FileInputStream(file);
+            bytes=inputStream.readAllBytes();
 
-        } catch (EOFException eof){
-            break;
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        /// kontrolnie
-        for (byte b: byteList
-             ) System.out.println(Integer.toBinaryString(b));
-
-return byteList;
+      CryptUtil.encryptByStream(bytes);
 
     }
 
