@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -389,14 +390,31 @@ public class CryptUtil {
     }
 
 public static void LFSRGenerator(){
+    Boolean[] polynomial = PrimaryController.getPolynomial();
+    short[] firstByte = new short[4];
+    Random r = new Random();
+//r.setSeed(System.currentTimeMillis());
+
+    for (int i=0;i<4;i++
+         ) firstByte[i]= (short) (r.nextBoolean() ? 1 : 0);
+
+    for (short s: firstByte
+         ) {
+        System.out.println(s);
+
+    }
 
         Thread thread2 = new Thread(()-> { while (PrimaryController.notify_==false){
-        System.out.println("aaaaaaaaaaaaaaaaaaa");  ///
+
+
+
+
     }
             System.out.println("stop");});          ///
 
         thread2.start();
-        Boolean[] polynomial = PrimaryController.getPolynomial();
+
+//generowanie w osobnym wątku
 
 
 }
@@ -428,6 +446,9 @@ bytes4ListAsString.add(tmp.substring(4));
             System.out.println(a);
 
         }
+
+        //
+
 
     }
 
