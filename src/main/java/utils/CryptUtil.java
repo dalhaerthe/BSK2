@@ -391,15 +391,42 @@ public class CryptUtil {
 
 public static void LFSRGenerator(){
     Boolean[] polynomial = PrimaryController.getPolynomial();
-    short[] firstByte = new short[4];
+    byte[] register = new byte[4];
     Random r = new Random();
-//r.setSeed(System.currentTimeMillis());
-
+r.setSeed(System.currentTimeMillis());
+List<byte[]> registers = new ArrayList<>();
+List<Byte> toXorList = new ArrayList<>();
+int tmp=0;             //rejestr bitu feedbacku
     for (int i=0;i<4;i++
-         ) firstByte[i]= (short) (r.nextBoolean() ? 1 : 0);
+         ) register[i]= (byte) (r.nextBoolean() ? 1 : 0);
 
-    for (short s: firstByte
+    registers.add(register);    //dodanie 1. losowego zestawu bitów
+
+    //sprzężenie zwrotne -XOR
+
+    try {
+
+
+        for (int i = 0; i < 4; i++)
+            if (polynomial[i] == true)
+                toXorList.add(register[i]);     //zbiera bity do 'xorowania'
+    }
+    catch (NullPointerException e)
+    {
+        Dialogs.polynomialNotFound();
+        return;
+    }
+    for (Byte b: register
+         ) {tmp = tmp ^b;
+        System.out.println(tmp+" xor");    ///
+    }
+
+
+    //rejestr przeduwający w prawo
+
+    for (short s: register
          ) {
+
         System.out.println(s);
 
     }

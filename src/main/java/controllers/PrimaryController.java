@@ -69,6 +69,7 @@ public class PrimaryController {
     }
 
     private static Boolean [] polynomial = new Boolean[5];   //wielomian w postaci mapy: potęga(index) -wartość (true/false)
+
     int register=0;
 
 
@@ -78,6 +79,10 @@ public class PrimaryController {
 
         //formatuje, by wejście nie akceptowało spacji
         spacesDeleter();
+        //ustawia false - z jakiegoś powodu mimo ustawienia wartości i tak po pobraniu 'polynomial' dostajemy null
+        for (Boolean b: polynomial
+             ) {b=false;
+        }
     }
 
     //kontroler przycisku zmiany tryby pracy

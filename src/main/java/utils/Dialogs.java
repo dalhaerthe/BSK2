@@ -96,4 +96,15 @@ public class Dialogs {
 
         a.show();
     }
+
+    public static void polynomialNotFound() {
+
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setTitle("Ostrzeżenie");
+        a.setHeaderText("Brak wielomianu");
+        a.setContentText("Należy najpierw wprowadzic wielomian");
+        a.setX(100);
+
+        a.show();
+    }
 }
