@@ -396,7 +396,7 @@ public class CryptUtil {
         List<Byte> toXorList = new ArrayList<>();
         List<Byte> results = new LinkedList<>();    //wynik
 
-        AtomicInteger xorRegister = new AtomicInteger();             //rejestr bitu feedbacku
+        final byte[] xorRegister = {0};             //rejestr bitu feedbacku
 
 
         for (int i = 0; i < 4; i++)
@@ -409,18 +409,17 @@ public class CryptUtil {
 
 
         if (preXor(polynomial, register, toXorList)) return;
-        xorRegister.set(makeXorOp(toXorList, xorRegister.get()));
+        xorRegister[0] = (byte) makeXorOp(toXorList, xorRegister[0]);
 
 
         //rejestr przesuwający w prawo
 
 
-        int finalXorRegister = xorRegister.get();
+
         Thread thread2 = new Thread(() -> {
             while (PrimaryController.notify_ == false) {
 
-                preXor(polynomial, register, toXorList);
-                xorRegister.set(makeXorOp(toXorList, xorRegister.get()));
+
 
                 results.add(register[3]);
                 System.out.print(" "+register[3]);
@@ -428,15 +427,16 @@ public class CryptUtil {
                 register[3] = register[2];
                 register[2] = register[1];
                 register[1] = register[0];
-                register[0] = (byte) finalXorRegister;
+                register[0] = (byte) xorRegister[0];
                 //registers.add(register);
                 for (int i = 0; i < register.length; i++) {
                     System.out.print(register[i]);
                 }
-
+                preXor(polynomial, register, toXorList);
+                xorRegister[0] = (byte) makeXorOp(toXorList, xorRegister[0]);
 
             }
-            System.out.println("stop");
+            System.out.println(" stop");
         });          ///
 
         thread2.start();
@@ -446,6 +446,13 @@ public class CryptUtil {
 
     }
 
+    /**
+     * przygotowuje liste bitów do operacji XOR
+     * @param polynomial
+     * @param register
+     * @param toXorList
+     * @return
+     */
     private static boolean preXor(Boolean[] polynomial, byte[] register, List<Byte> toXorList) {
         try {
 
@@ -459,13 +466,13 @@ public class CryptUtil {
         return false;
     }
 
-    private static int makeXorOp(List<Byte> toXorList, int xorRegister) {
+    private static int makeXorOp(List<Byte> toXorList, int xorResult) {
         for (Byte b : toXorList
         ) {
-            xorRegister = xorRegister ^ b;
-           // System.out.println(xorRegister + " xor");    ///
+            xorResult = xorResult ^ b;
+           // System.out.println(xorResult + " xor");    ///
         }
-        return xorRegister;
+        return xorResult;
     }
 
     /**

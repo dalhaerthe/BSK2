@@ -55,8 +55,7 @@ public class PrimaryController {
     ToggleButton x2;
     @FXML
     ToggleButton x1;
-    @FXML
-    ToggleButton x5;
+
 
 
     /**
@@ -370,11 +369,6 @@ if(x3.isSelected()==true)
         else
         polynomial[3]=false;
 
-        if(x5.isSelected()==true)
-            polynomial[4]=true;
-        else
-            polynomial[4]=false;
-
 
 
         if(x1.isSelected()==true)
@@ -398,10 +392,6 @@ if(x3.isSelected()==true)
         else
             register &= ~8;
 
-        if(x5.isSelected()==true)
-            register |=16;
-        else
-            register &= ~16;
         System.out.println(Integer.toBinaryString(register));       /// testowo
 
     }
