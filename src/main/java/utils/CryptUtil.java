@@ -429,9 +429,9 @@ public class CryptUtil {
                 register[1] = register[0];
                 register[0] = (byte) xorRegister[0];
                 //registers.add(register);
-                for (int i = 0; i < register.length; i++) {
-                    System.out.print(register[i]);
-                }
+//                for (int i = 0; i < 4; i++) {             //kontrolne wyświetlanie rejestrów
+                //    System.out.print(register[i]);
+//                }
                 preXor(polynomial, register, toXorList);
                 xorRegister[0] = (byte) makeXorOp(toXorList, xorRegister[0]);
 
@@ -470,7 +470,7 @@ public class CryptUtil {
         for (Byte b : toXorList
         ) {
             xorResult = xorResult ^ b;
-           // System.out.println(xorResult + " xor");    ///
+          //  System.out.println(xorResult + " xor");    ///
         }
         return xorResult;
     }
