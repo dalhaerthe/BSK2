@@ -4,10 +4,8 @@ import controllers.FilesController;
 import controllers.PrimaryController;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -248,7 +246,7 @@ public class CryptUtil {
      * algorytm 2:
      *
      * @param key
-     * @return  czy powodzenie
+     * @return czy powodzenie
      * @throws FileNotFoundException
      */
 
@@ -279,8 +277,8 @@ public class CryptUtil {
      */
 
     private static void transformInput() {
-        content=content.replace(" ","");
-        content=content.toUpperCase(Locale.ROOT);
+        content = content.replace(" ", "");
+        content = content.toUpperCase(Locale.ROOT);
     }
 
 
@@ -319,7 +317,7 @@ public class CryptUtil {
         content = content.toLowerCase(Locale.ROOT);
 
 
-        writeFile(ps2_a3(content,key), FILE_NAME3);
+        writeFile(ps2_a3(content, key), FILE_NAME3);
         return true;
         //algorytm3:
 
@@ -333,7 +331,7 @@ public class CryptUtil {
         contentEncoded = lettersToNumbers(content);
 
 
-          contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i podstepnie generuje problemy ;)
+        contentEncoded.remove(0);                   //usunięcie dziwnego znaku, który się dodaje prawdopodobnie z pliku i podstepnie generuje problemy ;)
         StringBuilder sb = new StringBuilder();
         int i = 0;
         for (int x : contentEncoded
@@ -389,87 +387,112 @@ public class CryptUtil {
         return M;
     }
 
-public static void LFSRGenerator(){
-    Boolean[] polynomial = PrimaryController.getPolynomial();
-    byte[] register = new byte[4];
-    Random r = new Random();
-r.setSeed(System.currentTimeMillis());
-List<byte[]> registers = new ArrayList<>();
-List<Byte> toXorList = new ArrayList<>();
-int tmp=0;             //rejestr bitu feedbacku
-    for (int i=0;i<4;i++
-         ) register[i]= (byte) (r.nextBoolean() ? 1 : 0);
+    public static void LFSRGenerator() {
+        Boolean[] polynomial = PrimaryController.getPolynomial();
+        byte[] register = new byte[4];      //4-bitowy rejestr
+        Random r = new Random();
+        r.setSeed(System.currentTimeMillis());
+        //List<byte[]> registers = new ArrayList<>();   /// może niepotrzebne
+        List<Byte> toXorList = new ArrayList<>();
+        List<Byte> results = new LinkedList<>();    //wynik
 
-    registers.add(register);    //dodanie 1. losowego zestawu bitów
-
-    //sprzężenie zwrotne -XOR
-
-    try {
+        AtomicInteger xorRegister = new AtomicInteger();             //rejestr bitu feedbacku
 
 
         for (int i = 0; i < 4; i++)
-            if (polynomial[i] == true)
-                toXorList.add(register[i]);     //zbiera bity do 'xorowania'
-    }
-    catch (NullPointerException e)
-    {
-        Dialogs.polynomialNotFound();
-        return;
-    }
-    for (Byte b: register
-         ) {tmp = tmp ^b;
-        System.out.println(tmp+" xor");    ///
-    }
+            register[i] = (byte) (r.nextBoolean() ? 1 : 0);
 
+        //registers.add(register);    //dodanie 1. losowego zestawu bitów //
 
-    //rejestr przeduwający w prawo
-
-    for (short s: register
-         ) {
-
-        System.out.println(s);
-
-    }
-
-        Thread thread2 = new Thread(()-> { while (PrimaryController.notify_==false){
+        //sprzężenie zwrotne -XOR
 
 
 
+        if (preXor(polynomial, register, toXorList)) return;
+        xorRegister.set(makeXorOp(toXorList, xorRegister.get()));
 
-    }
-            System.out.println("stop");});          ///
+
+        //rejestr przesuwający w prawo
+
+
+        int finalXorRegister = xorRegister.get();
+        Thread thread2 = new Thread(() -> {
+            while (PrimaryController.notify_ == false) {
+
+                preXor(polynomial, register, toXorList);
+                xorRegister.set(makeXorOp(toXorList, xorRegister.get()));
+
+                results.add(register[3]);
+                System.out.print(" "+register[3]);
+
+                register[3] = register[2];
+                register[2] = register[1];
+                register[1] = register[0];
+                register[0] = (byte) finalXorRegister;
+                //registers.add(register);
+                for (int i = 0; i < register.length; i++) {
+                    System.out.print(register[i]);
+                }
+
+
+            }
+            System.out.println("stop");
+        });          ///
 
         thread2.start();
 
 //generowanie w osobnym wątku
 
 
-}
+    }
+
+    private static boolean preXor(Boolean[] polynomial, byte[] register, List<Byte> toXorList) {
+        try {
+
+            for (int i = 0; i < 4; i++)
+                if (polynomial[i] == true)
+                    toXorList.add(register[i]);     //zbiera bity do 'xorowania'
+        } catch (NullPointerException e) {
+            Dialogs.polynomialNotFound();
+            return true;
+        }
+        return false;
+    }
+
+    private static int makeXorOp(List<Byte> toXorList, int xorRegister) {
+        for (Byte b : toXorList
+        ) {
+            xorRegister = xorRegister ^ b;
+           // System.out.println(xorRegister + " xor");    ///
+        }
+        return xorRegister;
+    }
 
     /**
      * szyfrowanie strumieniowe
+     *
      * @param bytes
      */
     public static void encryptByStream(byte[] bytes) {
 
-        short [] byte4 = new short[4];
+        short[] byte4 = new short[4];
         List<String> bytes4ListAsString = new ArrayList<>();
 
         //zamiana na słowa 4-bitowe
 
 
-        for ( byte b: bytes
+        for (byte b : bytes
 
-             ) {
-String tmp=String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
+        ) {
+            String tmp = String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
 
             System.out.println(tmp);
-bytes4ListAsString.add(tmp.substring(0,4));
-bytes4ListAsString.add(tmp.substring(4));
+            bytes4ListAsString.add(tmp.substring(0, 4));
+            bytes4ListAsString.add(tmp.substring(4));
         }
 /// kontrolnie:
-        for (String a: bytes4ListAsString
-             ) {
+        for (String a : bytes4ListAsString
+        ) {
             System.out.println(a);
 
         }

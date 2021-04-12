@@ -56,7 +56,7 @@ public class PrimaryController {
     @FXML
     ToggleButton x1;
     @FXML
-    ToggleButton x0;
+    ToggleButton x5;
 
 
     /**
@@ -349,56 +349,56 @@ public class PrimaryController {
 
     public void readPolynomial(MouseEvent mouseEvent) {
 
-if(x0.isSelected()==true)
+if(x1.isSelected()==true)
     polynomial[0]=true;
 else
     polynomial[0]=false;
 
 
-    if(x1.isSelected()==true)
+    if(x2.isSelected()==true)
     polynomial[1]=true;
 else
     polynomial[1]=false;
 
-if(x2.isSelected()==true)
+if(x3.isSelected()==true)
         polynomial[2]=true;
         else
         polynomial[2]=false;
 
-        if(x3.isSelected()==true)
+        if(x4.isSelected()==true)
         polynomial[3]=true;
         else
         polynomial[3]=false;
 
-        if(x4.isSelected()==true)
+        if(x5.isSelected()==true)
             polynomial[4]=true;
         else
             polynomial[4]=false;
 
 
 
-        if(x0.isSelected()==true)
+        if(x1.isSelected()==true)
             register |=1;
         else
             register &= ~1;
 
 
-        if(x1.isSelected()==true)
+        if(x2.isSelected()==true)
             register |=2;
         else
             register &= ~2;
 
-        if(x2.isSelected()==true)
+        if(x3.isSelected()==true)
             register |=4;
         else
             register &= ~4;
 
-        if(x3.isSelected()==true)
+        if(x4.isSelected()==true)
             register |=8;
         else
             register &= ~8;
 
-        if(x4.isSelected()==true)
+        if(x5.isSelected()==true)
             register |=16;
         else
             register &= ~16;

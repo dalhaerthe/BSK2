@@ -72,36 +72,36 @@
       <Label layoutX="261.0" layoutY="375.0" text="Proszę wybrać postać wielomianu" />
       <HBox layoutX="225.0" layoutY="405.0" prefHeight="35.0" prefWidth="250.0">
          <children>
-            <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" prefHeight="24.0" prefWidth="50.0" text="x^4" fx:id="x4">
+            <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" prefHeight="24.0" prefWidth="50.0" text="x^5" fx:id="x5">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+            </ToggleButton>
+            <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" text="x^4" fx:id="x4">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </ToggleButton>
             <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" text="x^3" fx:id="x3">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+            </ToggleButton>
+            <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" text="x^2" fx:id="x2">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
-            </ToggleButton>
-            <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" text="x^2" fx:id="x2">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </ToggleButton>
             <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" text="x" fx:id="x1">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </ToggleButton>
-            <ToggleButton minWidth="50.0" mnemonicParsing="false" onMouseClicked="#readPolynomial" text="1" fx:id="x0">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
