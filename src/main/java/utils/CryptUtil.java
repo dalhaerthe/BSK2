@@ -2,6 +2,7 @@ package utils;
 
 import controllers.FilesController;
 import controllers.PrimaryController;
+import org.testng.annotations.Test;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -399,10 +400,11 @@ public class CryptUtil {
         final byte[] xorRegister = {0};             //rejestr bitu feedbacku
 
 
+        //dodanie 1. losowego zestawu bitów
         for (int i = 0; i < 4; i++)
             register[i] = (byte) (r.nextBoolean() ? 1 : 0);
 
-        //registers.add(register);    //dodanie 1. losowego zestawu bitów //
+        //registers.add(register);
 
         //sprzężenie zwrotne -XOR
 
@@ -454,9 +456,10 @@ public class CryptUtil {
      * @return
      */
     private static boolean preXor(Boolean[] polynomial, byte[] register, List<Byte> toXorList) {
+        toXorList.clear();
         try {
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)             //mozna zrefaktorować, żeby nie przechodził za każdym razem po rejestrze tylko wybierał do xorowania tylko właściwe pozycje
                 if (polynomial[i] == true)
                     toXorList.add(register[i]);     //zbiera bity do 'xorowania'
         } catch (NullPointerException e) {
@@ -467,6 +470,8 @@ public class CryptUtil {
     }
 
     private static int makeXorOp(List<Byte> toXorList, int xorResult) {
+        xorResult=0;
+
         for (Byte b : toXorList
         ) {
             xorResult = xorResult ^ b;
@@ -508,6 +513,22 @@ public class CryptUtil {
 
 
     }
+
+    //testy dla róznych wartości wejścia
+    @Test
+    public void specifiedPatternTest_shouldReturnTheSameValues(){
+Boolean [] polynomial ={false,false,true,true};
+byte [] register = {1,0,1,1};
+List<Byte> toXorList = new ArrayList<>();
+
+        System.out.println(preXor(polynomial,register,toXorList));
+        toXorList.forEach(System.out::println);
+
+        System.out.println(makeXorOp(toXorList,0));
+
+    }
+
+
 
 
 }

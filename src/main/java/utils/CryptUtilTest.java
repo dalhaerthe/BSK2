@@ -112,6 +112,9 @@ a-=4;
 
 
     }
+@Test
+    public void specifiedPatternTest_shouldReturnTheSameValues(){
 
+}
 
 }
